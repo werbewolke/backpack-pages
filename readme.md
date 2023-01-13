@@ -27,8 +27,9 @@ Installiere die Pakete im Laravel root Verzeichnis mit `composer require`
 
 2. Füge dann in der `composer.json` im root Verzeichnis von Laravel diese Zeilen bei `repositories` ein:
     ```
-    "repositories": {
-        "werbewolke/pages": {
+    "repositories": [
+        {
+            "name": "werbewolke/pages",
             "type": "path",
             "url": "./packages/werbewolke/pages",
             "options": {
@@ -36,10 +37,10 @@ Installiere die Pakete im Laravel root Verzeichnis mit `composer require`
             }
         },
         ...
-    }
+    ]
     ```
 
-3. Danach musst du `composer require "werbewolke/pages @dev"` im Terminal eingeben.
+3. Danach musst du `composer require "werbewolke/pages"` im Terminal eingeben.
 4. Führe im Terminal aus: `php artisan migrate`
 5. Füge in der Datei `resources/views/vendor/backpack/base/inc/sidebar_content.blade.php` eine neue Zeile ein mit 
    ```
