@@ -22,6 +22,12 @@ class Page extends Model
     // protected $fillable = [];
     // protected $hidden = [];
     // protected $dates = [];
+    protected $fakeColumns = ['content', 'meta'];
+
+    protected $casts = [
+        'content' => 'object',
+        'meta' => 'object'
+    ];
 
     /*
     |--------------------------------------------------------------------------
