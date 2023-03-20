@@ -1,6 +1,6 @@
 <?php
 
-namespace Models;
+namespace Werbewolke\Pages\Models;
 
 use Backpack\CRUD\app\Models\Traits\CrudTrait;
 use Illuminate\Database\Eloquent\Model;

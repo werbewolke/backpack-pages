@@ -1,6 +1,6 @@
 <?php
 
-namespace Http\Controllers\PageTemplates\Templates;
+namespace Werbewolke\Pages\Http\Controllers\PageTemplates\Templates;
 
 use Backpack\CRUD\app\Library\CrudPanel\CrudPanelFacade as CRUD;
 

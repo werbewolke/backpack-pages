@@ -1,6 +1,6 @@
 <?php
 
-namespace Http\Controllers\Admin;
+namespace Werbewolke\Pages\Http\Controllers\Admin;
 
 use Backpack\CRUD\app\Http\Controllers\CrudController;
 use Backpack\CRUD\app\Library\CrudPanel\CrudPanelFacade as CRUD;
