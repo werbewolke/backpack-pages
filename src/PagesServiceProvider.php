@@ -14,4 +14,17 @@ class PagesServiceProvider extends ServiceProvider
     protected $commands = [
         \Werbewolke\Pages\Console\Commands\Install::class,
     ];
+
+    protected function bootForConsole(): void
+    {
+
+        $this->publishes([
+            __DIR__.'/../publish' => './',
+        ]);
+
+        // Registering package commands.
+        if (! empty($this->commands)) {
+            $this->commands($this->commands);
+        }
+    }
 }
