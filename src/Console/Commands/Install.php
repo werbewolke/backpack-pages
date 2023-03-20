@@ -35,9 +35,13 @@ class Install extends Command
         $this->newLine();
 
         $this->executeArtisanProcess('vendor:publish', [
-            '--tag' => 'assets',
+            '--provider' => 'Werbewolke\Pages\PagesServiceProvider',
         ]);
-        $this->progressBlock('Publishing js file', 'done', 'green');
+        $this->progressBlock('Copied Pages CRUD Files in app Folder', 'done', 'green');
+        $this->newLine();
+        $this->progressBlock('Copied Pages migration', 'done', 'green');
+        $this->newLine();
+        $this->progressBlock('Copied pages.js to public folder', 'done', 'green');
         $this->newLine();
 
         $this->executeArtisanProcess('backpack:add-sidebar-content', [

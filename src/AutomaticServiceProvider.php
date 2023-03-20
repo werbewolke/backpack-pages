@@ -98,9 +98,9 @@ trait AutomaticServiceProvider
     protected function bootForConsole(): void
     {
 
-        $this->publishes([
-            __DIR__.'/../../publish' => '',
-        ]);
+//        $this->publishes([
+//            __DIR__.'/../publish' => './',
+//        ]);
 
         // Registering package commands.
         if (! empty($this->commands)) {

@@ -7,8 +7,8 @@ use Illuminate\Support\ServiceProvider;
 
 class PagesServiceProvider extends ServiceProvider
 {
-    use AutomaticServiceProvider;
-    
+//    use AutomaticServiceProvider;
+
     protected $vendorName = 'werbewolke';
     protected $packageName = 'pages';
     protected $commands = [
