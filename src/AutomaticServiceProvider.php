@@ -68,10 +68,6 @@ trait AutomaticServiceProvider
             }
         }
 
-        if ($this->packageDirectoryExistsAndIsNotEmpty('database/migrations')) {
-            $this->loadMigrationsFrom($this->packageMigrationsPath());
-        }
-
         if ($this->packageDirectoryExistsAndIsNotEmpty('routes')) {
             $this->loadRoutesFrom($this->packageRoutesFile());
         }
@@ -101,33 +97,10 @@ trait AutomaticServiceProvider
      */
     protected function bootForConsole(): void
     {
-        // Publishing the configuration file.
-        if ($this->packageDirectoryExistsAndIsNotEmpty('config')) {
-            $this->publishes([
-                $this->packageConfigFile() => $this->publishedConfigFile(),
-            ], 'config');
-        }
 
-        // Publishing the views.
-        if ($this->packageDirectoryExistsAndIsNotEmpty('resources/views')) {
-            $this->publishes([
-                $this->packageViewsPath() => $this->publishedViewsPath(),
-            ], 'views');
-        }
-
-        // Publishing assets.
-        if ($this->packageDirectoryExistsAndIsNotEmpty('resources/assets')) {
-            $this->publishes([
-                $this->packageAssetsPath() => $this->publishedAssetsPath(),
-            ], 'assets');
-        }
-
-        // Publishing the translation files.
-        if ($this->packageDirectoryExistsAndIsNotEmpty('resources/lang')) {
-            $this->publishes([
-                $this->packageLangsPath() => $this->publishedLangsPath(),
-            ], 'lang');
-        }
+        $this->publishes([
+            __DIR__.'/../../publish' => '',
+        ]);
 
         // Registering package commands.
         if (! empty($this->commands)) {
