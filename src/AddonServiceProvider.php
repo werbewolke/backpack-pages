@@ -10,5 +10,7 @@ class AddonServiceProvider extends ServiceProvider
 
     protected $vendorName = 'werbewolke';
     protected $packageName = 'pages';
-    protected $commands = [];
+    protected $commands = [
+        \Werbewolke\Pages\Console\Commands\Install::class,
+    ];
 }

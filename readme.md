@@ -40,13 +40,11 @@ Installiere die Pakete im Laravel root Verzeichnis mit `composer require`
     ]
     ```
 
-3. Danach musst du `composer require "werbewolke/pages"` im Terminal eingeben. 
-   
-   Ab hier kannst du das Package in `packages/werbewolke` nach deinen Wünschen anpassen und erweitern.
+3. Danach musst du `composer require werbewolke/pages` im Terminal eingeben.
+4. Führe folgenden Befehl aus, damit "Seiten" zu der sidebar hinzugefügt wird
+   - `php artisan werbewolke:pages:install`
 
 
-4. Führe im Terminal aus: `php artisan migrate`
-5. Füge in der Datei `resources/views/vendor/backpack/base/inc/sidebar_content.blade.php` eine neue Zeile ein mit 
-   ```
-   <li class="nav-item"><a class="nav-link" href="{{ backpack_url('page') }}"><i class="nav-icon la la-copy"></i> <span>Seiten</span></a></li>
-   ```
+      Ab hier kannst du das Package in `packages/werbewolke` nach deinen Wünschen anpassen und erweitern.
+
+5. Führe im Terminal aus: `php artisan migrate`
