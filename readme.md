@@ -1,5 +1,5 @@
 ## Backpack Pages by WW
-Das ist ein Package für Laravel. Es erweitern Backpack um Seiten mit Template Funktion..
+Das ist ein Package für Laravel. Es erweitern Backpack um Seiten mit Template Funktion.
 
 ## Voraussetzungen
 Installiere die Pakete im Laravel root Verzeichnis mit `composer require`
