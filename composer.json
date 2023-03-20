@@ -10,10 +10,6 @@
             "homepage": "https://werbewolke.de"
         }
     ],
-    "homepage": "https://github.com/werbewolke/pages",
-    "keywords": [
-        "Laravel", "Backpack", "Backpack for Laravel", "Backpack Addon", "Pages"
-    ],
     "require": {
         "backpack/filemanager": "^2.0",
         "backpack/pro": "^1.5"
