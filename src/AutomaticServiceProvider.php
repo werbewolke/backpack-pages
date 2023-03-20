@@ -32,7 +32,6 @@ trait AutomaticServiceProvider
      */
     public function boot(): void
     {
-//        dd("awsdf");
         $this->autoboot();
     }
 

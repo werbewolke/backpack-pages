@@ -3,6 +3,7 @@
 namespace Werbewolke\Pages\Http\Controllers\Admin;
 
 use Backpack\CRUD\app\Http\Controllers\CrudController;
+use Backpack\CRUD\app\Library\Widget;
 use Backpack\CRUD\app\Library\CrudPanel\CrudPanelFacade as CRUD;
 use Werbewolke\Pages\Http\Controllers\PageTemplates\PageTemplates;
 use function Symfony\Component\VarDumper\Dumper\esc;
@@ -20,6 +21,8 @@ class PageCrudController extends CrudController
     use \Backpack\CRUD\app\Http\Controllers\Operations\DeleteOperation;
 
 //    use \Backpack\CRUD\app\Http\Controllers\Operations\ShowOperation;
+
+    public $templates;
 
     /**
      * Configure the CrudPanel object. Apply settings to all operations.
@@ -64,46 +67,60 @@ class PageCrudController extends CrudController
      */
     protected function setupCreateOperation()
     {
-        $templates = new PageTemplates();
-
         /**
-         * Wenn es ein Objekt gibt,
-         * dann lade das entsprechende Template.
+         * Lädt das JS für die dynamische Auswahl vom Template
          */
-        if ($this->crud->getCurrentEntry()) {
-            $templates->getFieldsByKey($this->crud->getCurrentEntry()->template);
+        Widget::add()->type('script')->content(asset('/vendor/werbewolke/pages/admin/js/pages.js'));
+
+        $this->templates = new PageTemplates();
+
+        if (isset($_GET['template']) && $this->templates->handleExists($_GET['template'])) {
+            /**
+             * Die Felder für das Template laden
+             */
+            $this->templates->getFieldsByKey($_GET['template']);
+
+            /**
+             * Default Felder laden
+             */
+            $this->loadDefaultFields();
+
         } else {
             /**
-             *
-             *  Dinge, die nur bei einem neuen Eintrag passieren:
-             *
-             */
-
-            /**
-             * Infobox zum Zwischenspeichern
+             * Nur das Template Feld wird beim Anlegen einer neuen Seite angezeigt.
+             * Beim Ändern wird die Seite per JS neugeladen
              */
             CRUD::addFields([
-                [   // CustomHTML
-                    'name' => 'separator',
-                    'type' => 'custom_html',
-                    'value' => '<p class="alert alert-info">Bitte Template auswählen und zwischenspeichern.</p>',
-                    'tab' => 'Inhalt'
-                ]
-            ]);
-
-            /**
-             * Nur einen Button "Zwischenspeichern" anzeigen
-             */
-            $this->crud->replaceSaveActions(
                 [
-                    'name' => 'Zwischenspeichern',
-                    'redirect' => function($crud, $request, $itemId) {
-                        return $crud->route . '/' . $itemId . '/edit';
-                    },
+                    'name' => 'template',
+                    'label' => "Template",
+                    'type' => 'select_from_array',
+                    'options' => array_merge(['-' => '-'], $this->templates->getTemplates()),
                 ],
-            );
+            ]);
         }
+    }
 
+    /**
+     * Define what happens when the Update operation is loaded.
+     *
+     * @see https://backpackforlaravel.com/docs/crud-operation-update
+     * @return void
+     */
+    protected function setupUpdateOperation()
+    {
+        $this->setupCreateOperation();
+
+        $this->crud->removeSaveActions([]);
+
+        /**
+         * Wenn Seite bearbeitet wird,
+         * soll sich der slug nicht automatisch anhand des Titels generieren
+         */
+        $this->crud->field('slug')->target('');
+    }
+
+    protected function loadDefaultFields() {
         /**
          * Allgemeine Felder für alle Seiten
          */
@@ -132,13 +149,14 @@ class PageCrudController extends CrudController
                 'validationMessages' => [
                     'required' => 'Slug muss angegeben werden.',
                     'unique' => 'Der Slug ist schon vergeben.',
-                ]
+                ],
             ],
             [
                 'name' => 'template',
                 'label' => "Template",
                 'type' => 'select_from_array',
-                'options' => $templates->getTemplates(),
+                'options' => $this->templates->getTemplates(),
+                'default' => $_GET['template'] ?? ''
             ],
         ]);
 
@@ -174,24 +192,5 @@ class PageCrudController extends CrudController
                 'store_in' => 'meta'
             ],
         ]);
-    }
-
-    /**
-     * Define what happens when the Update operation is loaded.
-     *
-     * @see https://backpackforlaravel.com/docs/crud-operation-update
-     * @return void
-     */
-    protected function setupUpdateOperation()
-    {
-        $this->setupCreateOperation();
-
-        $this->crud->removeSaveActions([]);
-
-        /**
-         * Wenn Seite bearbeitet wird,
-         * soll sich der slug nicht automatisch anhand des Titels generieren
-         */
-        $this->crud->field('slug')->target('');
     }
 }

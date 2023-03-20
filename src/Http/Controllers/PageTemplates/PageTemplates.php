@@ -46,4 +46,19 @@ class PageTemplates
             $this->$handle();
         }
     }
+
+    /**
+     * @param $handle
+     * @return bool
+     *
+     * Prüft, ob das Template existiert.
+     */
+    public function handleExists($handle)
+    {
+        if (isset($this->templates[$handle])) {
+            return true;
+        }
+
+        return false;
+    }
 }
