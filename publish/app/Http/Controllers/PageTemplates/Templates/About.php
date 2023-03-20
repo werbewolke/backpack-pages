@@ -1,17 +1,20 @@
 <?php
 
-namespace Werbewolke\Pages\Http\Controllers\PageTemplates\Templates;
+namespace Http\Controllers\PageTemplates\Templates;
 
 use Backpack\CRUD\app\Library\CrudPanel\CrudPanelFacade as CRUD;
 
-trait Home
+trait About
 {
-    public function home(): void
+    public function about(): void
     {
+        /**
+         * Inhalt
+         */
         CRUD::addFields([
             [
-                'name' => 'content_intro',
-                'label' => 'Einleitung',
+                'name' => 'content_about',
+                'label' => 'Über uns',
                 'type' => 'summernote',
                 'fake' => true,
                 'store_in' => 'content',

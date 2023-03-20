@@ -22,7 +22,7 @@
     "extra": {
         "laravel": {
             "providers": [
-                "Werbewolke\\Pages\\AddonServiceProvider"
+                "Werbewolke\\Pages\\PagesServiceProvider"
             ]
         }
     }

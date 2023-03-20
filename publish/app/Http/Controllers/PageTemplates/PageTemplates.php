@@ -1,9 +1,9 @@
 <?php
 
-namespace Werbewolke\Pages\Http\Controllers\PageTemplates;
+namespace Http\Controllers\PageTemplates;
 
-use Werbewolke\Pages\Http\Controllers\PageTemplates\Templates\About;
-use Werbewolke\Pages\Http\Controllers\PageTemplates\Templates\Home;
+use Http\Controllers\PageTemplates\Templates\About;
+use Http\Controllers\PageTemplates\Templates\Home;
 
 class PageTemplates
 {

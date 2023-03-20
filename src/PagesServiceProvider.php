@@ -4,7 +4,7 @@ namespace Werbewolke\Pages;
 
 use Illuminate\Support\ServiceProvider;
 
-class AddonServiceProvider extends ServiceProvider
+class PagesServiceProvider extends ServiceProvider
 {
     use AutomaticServiceProvider;
 

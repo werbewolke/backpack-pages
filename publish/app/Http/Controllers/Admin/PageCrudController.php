@@ -1,12 +1,14 @@
 <?php
 
-namespace Werbewolke\Pages\Http\Controllers\Admin;
+namespace Http\Controllers\Admin;
 
 use Backpack\CRUD\app\Http\Controllers\CrudController;
-use Backpack\CRUD\app\Library\Widget;
 use Backpack\CRUD\app\Library\CrudPanel\CrudPanelFacade as CRUD;
-use Werbewolke\Pages\Http\Controllers\PageTemplates\PageTemplates;
+use Backpack\CRUD\app\Library\Widget;
+use Http\Controllers\PageTemplates\PageTemplates;
 use function Symfony\Component\VarDumper\Dumper\esc;
+use function Werbewolke\Pages\Http\Controllers\Admin\asset;
+use function Werbewolke\Pages\Http\Controllers\Admin\config;
 
 /**
  * Class PageCrudController
@@ -31,7 +33,7 @@ class PageCrudController extends CrudController
      */
     public function setup()
     {
-        CRUD::setModel(\Werbewolke\Pages\Models\Page::class);
+        CRUD::setModel(\Models\Page::class);
         CRUD::setRoute(config('backpack.base.route_prefix') . '/page');
         CRUD::setEntityNameStrings('Seite', 'Seiten');
     }
