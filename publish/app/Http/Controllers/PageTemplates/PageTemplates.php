@@ -2,8 +2,8 @@
 
 namespace App\Http\Controllers\PageTemplates;
 
-use Http\Controllers\PageTemplates\Templates\About;
-use Http\Controllers\PageTemplates\Templates\Home;
+use App\Http\Controllers\PageTemplates\Templates\About;
+use App\Http\Controllers\PageTemplates\Templates\Home;
 
 class PageTemplates
 {

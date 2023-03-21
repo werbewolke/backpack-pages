@@ -5,10 +5,7 @@ namespace App\Http\Controllers\Admin;
 use Backpack\CRUD\app\Http\Controllers\CrudController;
 use Backpack\CRUD\app\Library\CrudPanel\CrudPanelFacade as CRUD;
 use Backpack\CRUD\app\Library\Widget;
-use Http\Controllers\PageTemplates\PageTemplates;
-use function Symfony\Component\VarDumper\Dumper\esc;
-use function Werbewolke\Pages\Http\Controllers\Admin\asset;
-use function Werbewolke\Pages\Http\Controllers\Admin\config;
+use App\Http\Controllers\PageTemplates\PageTemplates;
 
 /**
  * Class PageCrudController
