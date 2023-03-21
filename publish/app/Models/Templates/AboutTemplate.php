@@ -1,16 +1,19 @@
 <?php
 
-namespace App\Http\Controllers\PageTemplates\Templates;
+namespace App\Models\Templates;
 
+use App\Models\Template;
 use Backpack\CRUD\app\Library\CrudPanel\CrudPanelFacade as CRUD;
 
-trait About
+class AboutTemplate extends Template
 {
-    public function about(): void
+    protected $attributes = [
+        'handle' => 'about',
+        'name' => 'Über uns'
+    ];
+
+    public function crudFields()
     {
-        /**
-         * Inhalt
-         */
         CRUD::addFields([
             [
                 'name' => 'content_about',

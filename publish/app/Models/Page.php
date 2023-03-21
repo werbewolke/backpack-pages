@@ -29,6 +29,28 @@ class Page extends Model
         'meta' => 'object'
     ];
 
+    protected $templates;
+
+    public function __construct()
+    {
+        $templatesInFolder = [];
+
+        $files = array_diff(scandir(__DIR__ . "/Templates"), array('.', '..'));
+
+        foreach ($files as $filename) {
+            $class = __NAMESPACE__ . '\Templates\\' . str_replace('.php', '', $filename);
+            array_push($templatesInFolder, new $class);
+        }
+
+        $this->templates = collect($templatesInFolder);
+
+    }
+
+    public function getTemplates()
+    {
+        return $this->templates;
+    }
+
     /*
     |--------------------------------------------------------------------------
     | FUNCTIONS

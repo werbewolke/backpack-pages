@@ -1,12 +1,18 @@
 <?php
 
-namespace App\Http\Controllers\PageTemplates\Templates;
+namespace App\Models\Templates;
 
+use App\Models\Template;
 use Backpack\CRUD\app\Library\CrudPanel\CrudPanelFacade as CRUD;
 
-trait Home
+class HomeTemplate extends Template
 {
-    public function home(): void
+    protected $attributes = [
+        'handle' => 'home',
+        'name' => 'Startseite'
+    ];
+
+    public function crudFields()
     {
         CRUD::addFields([
             [

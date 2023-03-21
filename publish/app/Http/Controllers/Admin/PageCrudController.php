@@ -5,7 +5,6 @@ namespace App\Http\Controllers\Admin;
 use Backpack\CRUD\app\Http\Controllers\CrudController;
 use Backpack\CRUD\app\Library\CrudPanel\CrudPanelFacade as CRUD;
 use Backpack\CRUD\app\Library\Widget;
-use App\Http\Controllers\PageTemplates\PageTemplates;
 
 /**
  * Class PageCrudController
@@ -21,7 +20,7 @@ class PageCrudController extends CrudController
 
 //    use \Backpack\CRUD\app\Http\Controllers\Operations\ShowOperation;
 
-    public $templates;
+    public $templateList;
 
     /**
      * Configure the CrudPanel object. Apply settings to all operations.
@@ -33,6 +32,8 @@ class PageCrudController extends CrudController
         CRUD::setModel(\App\Models\Page::class);
         CRUD::setRoute(config('backpack.base.route_prefix') . '/page');
         CRUD::setEntityNameStrings('Seite', 'Seiten');
+
+        $this->templateList = $this->crud->getModel()->getTemplates()->pluck('name', 'handle')->all();
     }
 
     /**
@@ -71,13 +72,17 @@ class PageCrudController extends CrudController
          */
         Widget::add()->type('script')->content(asset('/vendor/werbewolke/pages/admin/js/pages.js'));
 
-        $this->templates = new PageTemplates();
+        $page = $this->crud->getModel();
 
-        if (isset($_GET['template']) && $this->templates->handleExists($_GET['template'])) {
+        /**
+         * Prüft ob der GET Parameter gesetzt ist und wenn ja, ob das Template existiert
+         */
+        if (isset($_GET['template']) && $page->getTemplates()->where('handle', $_GET['template'])->count() > 0) {
             /**
-             * Die Felder für das Template laden
+             * Die Felder vom jweiligen Template laden
              */
-            $this->templates->getFieldsByKey($_GET['template']);
+            $template = $page->getTemplates()->where('handle', $_GET['template'])->first();
+            $template->crudFields();
 
             /**
              * Default Felder laden
@@ -94,7 +99,7 @@ class PageCrudController extends CrudController
                     'name' => 'template',
                     'label' => "Template",
                     'type' => 'select_from_array',
-                    'options' => array_merge(['-' => '-'], $this->templates->getTemplates()),
+                    'options' => array_merge(['-' => '-'], $this->templateList),
                 ],
             ]);
         }
@@ -154,7 +159,7 @@ class PageCrudController extends CrudController
                 'name' => 'template',
                 'label' => "Template",
                 'type' => 'select_from_array',
-                'options' => $this->templates->getTemplates(),
+                'options' => $this->templateList,
                 'default' => $_GET['template'] ?? ''
             ],
         ]);
