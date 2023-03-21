@@ -183,9 +183,9 @@ class PageCrudController extends CrudController
             ],
             [
                 'name' => 'meta_additional',
-                'label' => 'Zusätzlicher Inhalt im ' . esc('<head>') . ' Bereich',
+                'label' => 'Zusätzlicher Inhalt im ' . htmlspecialchars('<head>') . ' Bereich',
                 'type' => 'textarea',
-                'hint' => 'Zum Beispiel: ' . esc('<meta name="robots" content="noindex,nofollow" />'),
+                'hint' => 'Zum Beispiel: ' . htmlspecialchars('<meta name="robots" content="noindex,nofollow" />'),
                 'tab' => 'Meta',
                 'fake' => true,
                 'store_in' => 'meta'
