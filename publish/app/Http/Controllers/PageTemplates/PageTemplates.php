@@ -1,6 +1,6 @@
 <?php
 
-namespace Werbewolke\Pages\Http\Controllers\PageTemplates;
+namespace App\Http\Controllers\PageTemplates;
 
 use Http\Controllers\PageTemplates\Templates\About;
 use Http\Controllers\PageTemplates\Templates\Home;
