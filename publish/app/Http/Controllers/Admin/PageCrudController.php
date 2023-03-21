@@ -30,7 +30,7 @@ class PageCrudController extends CrudController
      */
     public function setup()
     {
-        CRUD::setModel(\Models\Page::class);
+        CRUD::setModel(\App\Models\Page::class);
         CRUD::setRoute(config('backpack.base.route_prefix') . '/page');
         CRUD::setEntityNameStrings('Seite', 'Seiten');
     }

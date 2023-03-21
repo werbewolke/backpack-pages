@@ -42,7 +42,11 @@ class Install extends Command
         $this->progressBlock('Copied Pages migration', 'done', 'green');
         $this->newLine();
         $this->progressBlock('Copied pages.js to public folder', 'done', 'green');
-        $this->newLine();
+        $this->newLine(2);
+
+        $this->call('backpack:add-custom-route', [
+            'code' => "Route::crud('page', 'PageCrudController');",
+        ]);
 
         $this->executeArtisanProcess('backpack:add-sidebar-content', [
             'code' => '<li class="nav-item"><a class="nav-link" href="{{ backpack_url(\'page\') }}"><i class="nav-icon la la la-copy"></i> <span>Seiten</span></a></li>', ]);
