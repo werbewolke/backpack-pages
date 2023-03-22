@@ -21,6 +21,7 @@ class PageCrudController extends CrudController
 //    use \Backpack\CRUD\app\Http\Controllers\Operations\ShowOperation;
 
     public $templateList;
+    public $page;
 
     /**
      * Configure the CrudPanel object. Apply settings to all operations.
@@ -33,6 +34,7 @@ class PageCrudController extends CrudController
         CRUD::setRoute(config('backpack.base.route_prefix') . '/page');
         CRUD::setEntityNameStrings('Seite', 'Seiten');
 
+        $this->page = $this->crud->getModel();
         $this->templateList = $this->crud->getModel()->getTemplates()->pluck('name', 'handle')->all();
     }
 
@@ -70,37 +72,35 @@ class PageCrudController extends CrudController
         /**
          * Lädt das JS für die dynamische Auswahl vom Template
          */
-        Widget::add()->type('script')->content(asset('/vendor/werbewolke/pages/admin/js/pages.js'));
-
-        $page = $this->crud->getModel();
+        $this->loadJs();
 
         /**
          * Prüft ob der GET Parameter gesetzt ist und wenn ja, ob das Template existiert
          */
-        if (isset($_GET['template']) && $page->getTemplates()->where('handle', $_GET['template'])->count() > 0) {
+        if (isset($_POST['_save_action']) || isset($_GET['template']) && $this->page->getTemplates()->where('handle', $_GET['template'])->count() > 0) {
             /**
              * Die Felder vom jweiligen Template laden
              */
-            $template = $page->getTemplates()->where('handle', $_GET['template'])->first();
+            $template = $this->page->getTemplates()->where('handle', $_GET['template'] ?? $_POST['template'])->first();
             $template->crudFields();
 
             /**
              * Default Felder laden
              */
             $this->loadDefaultFields();
-
         } else {
             /**
              * Nur das Template Feld wird beim Anlegen einer neuen Seite angezeigt.
              * Beim Ändern wird die Seite per JS neugeladen
              */
+
             CRUD::addFields([
                 [
                     'name' => 'template',
                     'label' => "Template",
                     'type' => 'select_from_array',
                     'options' => array_merge(['-' => '-'], $this->templateList),
-                ],
+                ]
             ]);
         }
     }
@@ -113,9 +113,17 @@ class PageCrudController extends CrudController
      */
     protected function setupUpdateOperation()
     {
-        $this->setupCreateOperation();
+        $this->loadJs();
 
-        $this->crud->removeSaveActions([]);
+        $templateHandle = $_GET['template'] ?? $this->crud->getCurrentEntry()->template;
+
+        $template = $this->page->getTemplates()->where('handle', $templateHandle)->first();
+        $template->crudFields();
+
+        /**
+         * Default Felder laden ohne Template auswahl
+         */
+        $this->loadDefaultFields(false);
 
         /**
          * Wenn Seite bearbeitet wird,
@@ -124,7 +132,8 @@ class PageCrudController extends CrudController
         $this->crud->field('slug')->target('');
     }
 
-    protected function loadDefaultFields() {
+    protected function loadDefaultFields($showTemplate = true)
+    {
         /**
          * Allgemeine Felder für alle Seiten
          */
@@ -154,15 +163,18 @@ class PageCrudController extends CrudController
                     'required' => 'Slug muss angegeben werden.',
                     'unique' => 'Der Slug ist schon vergeben.',
                 ],
-            ],
-            [
+            ]
+        ]);
+
+        if ($showTemplate) {
+            CRUD::addField([
                 'name' => 'template',
                 'label' => "Template",
                 'type' => 'select_from_array',
                 'options' => $this->templateList,
-                'default' => $_GET['template'] ?? ''
-            ],
-        ]);
+                'value' => $_GET['template'] ?? ''
+            ]);
+        }
 
 
         /**
@@ -196,5 +208,10 @@ class PageCrudController extends CrudController
                 'store_in' => 'meta'
             ],
         ]);
+    }
+
+    protected function loadJs()
+    {
+        Widget::add()->type('script')->content(asset('/vendor/werbewolke/pages/admin/js/pages.js'));
     }
 }
