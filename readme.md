@@ -24,6 +24,6 @@ Das `backpack/crud` Paket ist Voraussetzung und wird automatisch mit installiert
    Mit diesem Befehl werden alle benötigten Dateien in die jeweiligen Verzeichnise kopiert und die Sidebar-Navigation automatisch angepasst.
 
 
-      Ab hier kannst du das Package in `packages/werbewolke` nach deinen Wünschen anpassen und erweitern.
+      Ab hier kannst du die Dateien zB die migration nach deinen Wünschen anpassen und erweitern.
 
 5. Führe im Terminal aus: `php artisan migrate`
