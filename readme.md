@@ -4,8 +4,6 @@ Das ist ein Package für Laravel. Es erweitern Backpack um Seiten mit Template F
 ## Voraussetzungen
 Das `backpack/crud` Paket ist Voraussetzung und wird automatisch mit installiert.
 
-Das Backend muss schon funktionieren!
-
 ## Installation
 1. Füge dann in der `composer.json` im root Verzeichnis von Laravel diese Zeilen bei `repositories` ein:
     ```
