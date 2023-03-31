@@ -11,7 +11,7 @@
         }
     ],
     "require": {
-        "backpack/crud": "^1.5"
+        "backpack/crud": "^5.5"
     },
     "autoload": {
         "psr-4": {
