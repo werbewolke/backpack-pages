@@ -2,7 +2,7 @@
     "name": "werbewolke/pages",
     "description": "",
     "license": "MIT",
-    "version": "1.1.1",
+    "version": "1.2.0",
     "authors": [
         {
             "name": "Werbewolke GmbH",
@@ -11,8 +11,7 @@
         }
     ],
     "require": {
-        "backpack/filemanager": "^2.0",
-        "backpack/pro": "^1.5"
+        "backpack/crud": "^1.5"
     },
     "autoload": {
         "psr-4": {
