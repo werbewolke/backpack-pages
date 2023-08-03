@@ -49,9 +49,9 @@ class Install extends Command
         ]);
 
         $this->executeArtisanProcess('backpack:add-sidebar-content', [
-            'code' => '<li class="nav-item"><a class="nav-link" href="{{ backpack_url(\'page\') }}"><i class="nav-icon la la la-copy"></i> <span>Seiten</span></a></li>', ]);
+            '<x-backpack::menu-item title="Seiten" icon="la la-file" :link="backpack_url("page")" />', ]);
 
-        $this->progressBlock('Adding item to <fg=blue>resources/views/vendor/backpack/base/inc/sidebar_content.blade.php</>', 'done', 'green');
+        $this->progressBlock('Adding item to <fg=blue>resources/views/vendor/backpack/ui/inc/menu_items.blade.php</>', 'done', 'green');
         $this->newLine(2);
     }
 }
