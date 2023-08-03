@@ -49,7 +49,8 @@ class Install extends Command
         ]);
 
         $this->executeArtisanProcess('backpack:add-menu-content', [
-            '<x-backpack::menu-item title="Seiten" icon="la la-file" :link="backpack_url("page")" />', ]);
+            'code' => '<x-backpack::menu-item title="Seiten" icon="la la-file" :link="backpack_url("page")" />'
+        ]);
 
         $this->progressBlock('Adding item to <fg=blue>resources/views/vendor/backpack/ui/inc/menu_items.blade.php</>', 'done', 'green');
         $this->newLine(2);
