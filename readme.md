@@ -11,7 +11,7 @@ Das `backpack/crud` Paket ist Voraussetzung und wird automatisch mit installiert
         {
             "name": "werbewolke/pages",
             "type": "git",
-            "url": "https://bitbucket.org/werbewolkegmbh/backpack-pages-package.git"
+            "url": "https://github.com/werbewolke/backpack-pages.git"
         }
         ...
     ]
